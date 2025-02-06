@@ -1,6 +1,7 @@
 package com.mipagina.order_service.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,13 +9,23 @@ import jakarta.persistence.*;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the order item", example = "1")
     private Long id;
+
+    @Schema(description = "Unique identifier for the product in the order", example = "2001", required = true)
     private Long productId;
+
+    @Schema(description = "Quantity of the product ordered", example = "2", required = true)
     private Integer quantity;
+
+    @Schema(description = "Unit price of the product", example = "100.25", required = true)
     private Double unitPrice;
+
+    @Schema(description = "Subtotal for the order item (quantity * unit price)", example = "200.50", required = true)
     private Double subtotal;
 
-    @ManyToOne
+
+@ManyToOne
     @JoinColumn(name = "order_id")
     @JsonBackReference
     private Order order;
